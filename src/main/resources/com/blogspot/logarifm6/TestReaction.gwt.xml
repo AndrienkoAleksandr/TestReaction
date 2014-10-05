@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='TestReaction'>
+
+  <inherits name='com.google.gwt.user.User' />
+
+  <inherits name='com.google.gwt.junit.JUnit' />
+
+  <inherits name='com.google.gwt.user.theme.standard.Standard' />
+
+  <entry-point class='com.blogspot.logarifm6.client.TestReaction' />
+
+    <!--Resources-->
+    <inherits name="com.google.gwt.resources.Resources"/>
+    <inherits name="com.google.gwt.inject.Inject"/>
+
+    <!-- Specify the paths for translatable code                    -->
+  <source path='client' />
+
+    <add-linker name="xsiframe"/>
+    <set-configuration-property name="devModeRedirectEnabled" value="true"/>
+    <set-configuration-property name="gwt.superdevmode" value="on"/>
+    <set-property name="compiler.useSourceMaps" value="true"/>
+
+</module>

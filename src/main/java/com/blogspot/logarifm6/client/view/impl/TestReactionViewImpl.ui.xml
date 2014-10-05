@@ -1,0 +1,45 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:with field="res" type="com.blogspot.logarifm6.client.TestReactResources"/>
+
+    <ui:style>
+
+        .labelResult {
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        .mainPanel {
+            float: left;
+            text-align: center;
+            width: 600px;
+            margin: 10px auto;
+            align-content: center;
+        }
+    </ui:style>
+
+    <g:DockLayoutPanel>
+
+        <g:north size="80">
+            <g:Label text="Reaction Test for you!" styleName="{res.getStyle.caption}"/>
+        </g:north>
+
+        <g:center>
+            <g:FlowPanel styleName="{style.mainPanel}">
+
+                <g:FlowPanel ui:field="content" styleName="{res.getStyle.table}"/>
+
+                <g:SimplePanel styleName="{res.getStyle.startButton}">
+                    <g:Button text="Start!!!" ui:field="startButton" styleName="{res.getStyle.startButton}"/>
+                </g:SimplePanel>
+
+                <g:SimplePanel styleName="{style.labelResult}">
+                    <g:Label styleName="{style.labelResult}"  ui:field="result" text="Soon you will see your result!"/>
+                </g:SimplePanel>
+
+            </g:FlowPanel>
+        </g:center>
+
+    </g:DockLayoutPanel>
+</ui:UiBinder>
