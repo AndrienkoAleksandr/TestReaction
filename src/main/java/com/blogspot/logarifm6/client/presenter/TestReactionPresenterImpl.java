@@ -39,13 +39,15 @@ public class TestReactionPresenterImpl implements TestReactionPresenter {
 
     private final int amountSwitch = 5;
 
-    private final int amountColumn;
+    private int amountColumn;
 
-    private final int amountRow;
+    private int amountRow;
 
     private Timer timer;
 
     private int nextNumber = -1;
+  
+    private HasWidgets container;
 
     @Inject
     public TestReactionPresenterImpl(TestReactionView reactionView,
@@ -57,32 +59,35 @@ public class TestReactionPresenterImpl implements TestReactionPresenter {
         this.amountColumn = amountColumn;
         this.amountRow = amountRow;
         reactionView.setReactionPresenter(this);
-
-        for(int i = 0; i < amountRow; i++) {
-            initPanelButton(reactionView.getContent(), new FlowPanel());
-        }
+        initPanelButton();
     }
 
-    private void initPanelButton(HasWidgets contentPanel, FlowPanel flowPanel) {
+    private void initPanelButton() {
+      for(int i = 0; i < amountRow; i++) {
+            createColumn(reactionView.getContent(), new FlowPanel());
+        }
+    }
+  
+    private void createColumn(HasWidgets contentPanel, FlowPanel flowPanel) {
         TestInjector injector = GWT.create(TestInjector.class);
         for(int i = 0; i < amountColumn; i++) {
 
-            SmartWidget smartWidget = injector.getSmartWidget();
-            smartWidget.setPresenter(this);
+          SmartWidget smartWidget = injector.getSmartWidget();
+          smartWidget.setPresenter(this);
 
-            buttons.add(smartWidget);
+          buttons.add(smartWidget);
 
-            flowPanel.add(smartWidget);
+          flowPanel.add(smartWidget);
 
-            smartWidget.addStyleName(resources.getStyle().whiteCSS());
+          smartWidget.addStyleName(resources.getStyle().whiteCSS());
 
-            contentPanel.add(flowPanel);
+          contentPanel.add(flowPanel);
         }
-
     }
 
     @Override
     public void go(HasWidgets container) {
+        this.container = container;
         container.add(reactionView.asWidget());
     }
 
@@ -91,7 +96,6 @@ public class TestReactionPresenterImpl implements TestReactionPresenter {
 
         reactionView.getStartButton().setText("Stop");
         reactionView.setResult("Come on!!! Let's go!!! Quickly!");
-
 
         timer = new Timer() {
             @Override
@@ -147,5 +151,20 @@ public class TestReactionPresenterImpl implements TestReactionPresenter {
     @Override
     public void stopAction() {
         timer.cancel();
+    }
+    
+    @Override
+    public void saveButtonClicked() {
+       amountColumn = reactionView.getAmounColumn();
+       amountRow = reactionView.getAmountRow();
+       container.clear();
+      
+       TestInjector injector = GWT.create(TestInjector.class);
+       
+       reactionView = injector.getTestReactionView();
+       reactionView.setReactionPresenter(this);
+       container.add(reactionView.asWidget());
+       
+       initPanelButton();
     }
 }

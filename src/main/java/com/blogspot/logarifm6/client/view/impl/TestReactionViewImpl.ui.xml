@@ -40,6 +40,19 @@
 
             </g:FlowPanel>
         </g:center>
+        <g:east size="100">
+        		<g:FlowPanel>
+              
+               <g:Label text="Amount column"/>
+        			<g:ListBox ui:field="columnBox" />
+              
+               <g:Label text="Amount row"/>  
+					<g:ListBox ui:field="rowBox" />
+              
+               <g:Button ui:field="save" text="Save Setting"/>
+
+        		</g:FlowPanel>
+        </g:east>
 
     </g:DockLayoutPanel>
 </ui:UiBinder>
