@@ -60,10 +60,10 @@ public class TestReactionViewImpl extends Composite implements TestReactionView 
     }
 
     private void generateListOfSize() {
-       for (int i = 1; i <= maxAmountColumn; i++) {
+       for (int i = 2; i <= maxAmountColumn; i++) {
          columnBox.addItem(String.valueOf(i));
        }
-       for (int j = 1; j <= maxAmountRow; j++) {
+       for (int j = 2; j <= maxAmountRow; j++) {
          rowBox.addItem(String.valueOf(j));
        }
     }

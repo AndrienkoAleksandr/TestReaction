@@ -63,6 +63,7 @@ public class TestReactionPresenterImpl implements TestReactionPresenter {
     }
 
     private void initPanelButton() {
+      buttons.clear();
       for(int i = 0; i < amountRow; i++) {
             createColumn(reactionView.getContent(), new FlowPanel());
         }
@@ -166,5 +167,6 @@ public class TestReactionPresenterImpl implements TestReactionPresenter {
        container.add(reactionView.asWidget());
        
        initPanelButton();
+       stopAction();
     }
 }
