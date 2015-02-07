@@ -41,18 +41,18 @@
             </g:FlowPanel>
         </g:center>
         <g:east size="100">
-        		<g:FlowPanel>
+        		<g:FlowPanel ui:field="setting">
               
-               <g:Label text="Amount column"/>
-        			<g:ListBox ui:field="columnBox" />
-              
-               <g:Label text="Amount row"/>  
-					<g:ListBox ui:field="rowBox" />
-              
-               <g:Label text="Amount flash"/>  
-					<g:TextBox ui:field="amountFlash" />
-              
-               <g:Button ui:field="save" text="Save Setting"/>
+                   <g:Label text="Amount column"/>
+                        <g:ListBox ui:field="columnBox" />
+
+                   <g:Label text="Amount row"/>
+                        <g:ListBox ui:field="rowBox" />
+
+                   <g:Label text="Amount flash"/>
+                        <g:TextBox ui:field="amountFlash" />
+
+                   <g:Button ui:field="save" text="Save Setting"/>
 
         		</g:FlowPanel>
         </g:east>

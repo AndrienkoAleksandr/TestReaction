@@ -10,6 +10,10 @@ import com.blogspot.logarifm6.client.gin.anotation.AmountFlash;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+/**
+ * Created by Andrienko Alexander on 14.09.2014.
+ *
+ */
 @Singleton
 public class Settings {
   

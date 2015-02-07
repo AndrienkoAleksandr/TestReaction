@@ -14,7 +14,8 @@ import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 
 /**
- * Created by USER on 14.09.2014.
+ * Created by Andrienko Alexander on 14.09.2014.
+ *
  */
 public class TestReactionViewImpl extends Composite implements TestReactionView {
   
@@ -44,6 +45,9 @@ public class TestReactionViewImpl extends Composite implements TestReactionView 
     TextBox amountFlash;
 
     @UiField
+    FlowPanel setting;
+
+    @UiField
     Label result;
   
     private Settings settings;
@@ -51,27 +55,28 @@ public class TestReactionViewImpl extends Composite implements TestReactionView 
     @Inject
     public TestReactionViewImpl(TestReactResources reactResources, 
                                 Settings settings) {
-      GWT.log(settings.hashCode() + "{}");
         this.res = reactResources;
         this.settings = settings;
+
         initWidget(ourUiBinder.createAndBindUi(this));
-        generateListOfSize();
-        displaySettings();
+
+        redraw();
     }
 
     private void displaySettings() {
-//        columnBox.setSelectedIndex(1);
-//        rowBox.setSelectedIndex(1);
         amountFlash.setValue(String.valueOf(settings.getAmountFlash()));
     }
 
-    private void generateListOfSize() {
-       for (int i = settings.getMinAmountColumn(); i <= settings.getMaxAmountColumn(); i++) {
-         columnBox.addItem(String.valueOf(i));
-       }
-       for (int j = settings.getMinAmountRow(); j <= settings.getMaxAmountRow(); j++) {
-         rowBox.addItem(String.valueOf(j));
-       }
+    private void generateListOfSize(ListBox listBox, int minItem, int maxItem) {
+        int selectedColumnIndex = listBox.getSelectedIndex();
+
+        listBox.clear();
+
+        for (int i = minItem; i <= maxItem; i++) {
+           listBox.addItem(String.valueOf(i));
+        }
+
+        listBox.setSelectedIndex(selectedColumnIndex);
     }
 
     @UiHandler("startButton")
@@ -95,24 +100,28 @@ public class TestReactionViewImpl extends Composite implements TestReactionView 
         }
     }
 
+    @Override
     public void setReactionPresenter(TestReactionPresenter reactionPresenter) {
         this.reactionPresenter = reactionPresenter;
     }
 
+    @Override
     public HasWidgets getContent() {
         return content;
     }
 
+    @Override
     public void setResult(String result) {
         this.result.setText(result);
     }
 
+    @Override
     public Button getStartButton() {
         return startButton;
     }
 
     @Override
-    public int getAmounColumn() {
+    public int getAmountColumn() {
         String result = columnBox.getValue(columnBox.getSelectedIndex());
         return Integer.valueOf(result);
     }
@@ -126,5 +135,15 @@ public class TestReactionViewImpl extends Composite implements TestReactionView 
     @Override
     public int getAmountFlash() {
         return Integer.parseInt(amountFlash.getValue());
+    }
+
+    @Override
+    public void redraw() {
+        content.clear();
+
+        generateListOfSize(rowBox, settings.getMinAmountRow(), settings.getMaxAmountRow());
+        generateListOfSize(columnBox, settings.getMinAmountColumn(), settings.getMaxAmountColumn());
+
+        displaySettings();
     }
 }

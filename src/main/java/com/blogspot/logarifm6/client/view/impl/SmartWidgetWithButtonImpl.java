@@ -10,7 +10,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.inject.Inject;
 
 /**
- * Created by logarifm on 15.09.14.
+ * Created by Andrienko Alexander on 14.09.2014.
+ *
  */
 public class SmartWidgetWithButtonImpl extends Composite implements SmartWidget {
 

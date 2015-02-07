@@ -18,7 +18,8 @@ import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
 
 /**
- * Created by USER on 15.09.2014.
+ * Created by Andrienko Alexander on 14.09.2014.
+ *
  */
 public class GinModule extends AbstractGinModule {
 
@@ -38,6 +39,6 @@ public class GinModule extends AbstractGinModule {
         bindConstant().annotatedWith(AmountRow.class).to(2);
       
         bindConstant().annotatedWith(AmountFlash.class).to(5);
-        bind(Settings.class);
+        bind(Settings.class).asEagerSingleton();
     }
 }

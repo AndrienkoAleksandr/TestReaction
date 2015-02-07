@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by USER on 14.09.2014.
+ * Created by Andrienko Alexander on 14.09.2014.
+ *
  */
 public class TestReactionPresenterImpl implements TestReactionPresenter {
 
@@ -154,19 +155,17 @@ public class TestReactionPresenterImpl implements TestReactionPresenter {
     
     @Override
     public void saveButtonClicked() {
-       settings.setAmountColumn(reactionView.getAmounColumn());
+       settings.setAmountColumn(reactionView.getAmountColumn());
        settings.setAmountRow(reactionView.getAmountRow());
        settings.setAmountFlash(reactionView.getAmountFlash());
        
        this.amountSwitch = reactionView.getAmountFlash();
-      
+
        container.clear();
-      
-       TestInjector injector = GWT.create(TestInjector.class);
-       
-       reactionView = injector.getTestReactionView();
        reactionView.setReactionPresenter(this);
        container.add(reactionView.asWidget());
+
+       reactionView.redraw();
        
        initPanelButton();
        stopAction();

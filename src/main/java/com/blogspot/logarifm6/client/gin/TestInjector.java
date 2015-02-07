@@ -8,7 +8,8 @@ import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 
 /**
- * Created by USER on 15.09.2014.
+ * Created by Andrienko Alexander on 14.09.2014.
+ *
  */
 @GinModules(GinModule.class)
 public interface TestInjector extends Ginjector{

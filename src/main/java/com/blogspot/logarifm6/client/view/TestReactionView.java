@@ -18,9 +18,11 @@ public interface TestReactionView extends IsWidget {
 
     public Button getStartButton();
   
-    public int getAmounColumn();
+    public int getAmountColumn();
       
     public int getAmountRow();
   
     public int getAmountFlash();
+
+    public void redraw();
 }
