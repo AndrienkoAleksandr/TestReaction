@@ -51,6 +51,7 @@ public class TestReactionViewImpl extends Composite implements TestReactionView 
     @Inject
     public TestReactionViewImpl(TestReactResources reactResources, 
                                 Settings settings) {
+      GWT.log(settings.hashCode() + "{}");
         this.res = reactResources;
         this.settings = settings;
         initWidget(ourUiBinder.createAndBindUi(this));
