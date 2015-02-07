@@ -1,13 +1,12 @@
 package com.blogspot.logarifm6.client.view.impl;
 
 import com.blogspot.logarifm6.client.TestReactResources;
-import com.blogspot.logarifm6.client.gin.anotation.MaxAmountColumn;
-import com.blogspot.logarifm6.client.gin.anotation.MaxAmountRow;
+import com.blogspot.logarifm6.client.game_component.Settings;
 import com.blogspot.logarifm6.client.presenter.TestReactionPresenter;
 import com.blogspot.logarifm6.client.view.TestReactionView;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -40,30 +39,36 @@ public class TestReactionViewImpl extends Composite implements TestReactionView 
   
     @UiField
     ListBox rowBox;
+  
+    @UiField
+    TextBox amountFlash;
 
     @UiField
     Label result;
   
-    private final int maxAmountColumn;
-
-    private final int maxAmountRow;
+    private Settings settings;
   
     @Inject
-    public TestReactionViewImpl(TestReactResources reactResources,
-                                @MaxAmountColumn int maxAmountColumn,
-                                @MaxAmountRow int maxAmountRow) {
+    public TestReactionViewImpl(TestReactResources reactResources, 
+                                Settings settings) {
         this.res = reactResources;
-        this.maxAmountColumn = maxAmountColumn;
-        this.maxAmountRow = maxAmountRow;
+        this.settings = settings;
         initWidget(ourUiBinder.createAndBindUi(this));
         generateListOfSize();
+        displaySettings();
+    }
+
+    private void displaySettings() {
+//        columnBox.setSelectedIndex(1);
+//        rowBox.setSelectedIndex(1);
+        amountFlash.setValue(String.valueOf(settings.getAmountFlash()));
     }
 
     private void generateListOfSize() {
-       for (int i = 2; i <= maxAmountColumn; i++) {
+       for (int i = settings.getMinAmountColumn(); i <= settings.getMaxAmountColumn(); i++) {
          columnBox.addItem(String.valueOf(i));
        }
-       for (int j = 2; j <= maxAmountRow; j++) {
+       for (int j = settings.getMinAmountRow(); j <= settings.getMaxAmountRow(); j++) {
          rowBox.addItem(String.valueOf(j));
        }
     }
@@ -80,6 +85,13 @@ public class TestReactionViewImpl extends Composite implements TestReactionView 
     @UiHandler("save")
     public void onClickedSaveButton(ClickEvent clickEvent) {
       reactionPresenter.saveButtonClicked();
+    }
+  
+     @UiHandler("amountFlash")
+    public void onKeyUp(KeyPressEvent event) {
+        if (!Character.isDigit(event.getCharCode())) {
+          amountFlash.cancelKey();
+        }
     }
 
     public void setReactionPresenter(TestReactionPresenter reactionPresenter) {
@@ -108,5 +120,10 @@ public class TestReactionViewImpl extends Composite implements TestReactionView 
     public int getAmountRow() {
         String result = rowBox.getValue(rowBox.getSelectedIndex());
         return Integer.valueOf(result);
+    }
+
+    @Override
+    public int getAmountFlash() {
+        return Integer.parseInt(amountFlash.getValue());
     }
 }

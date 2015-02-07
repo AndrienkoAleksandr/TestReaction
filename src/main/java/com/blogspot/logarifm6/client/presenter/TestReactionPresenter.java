@@ -1,7 +1,6 @@
 package com.blogspot.logarifm6.client.presenter;
 
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.*;
 
 /**
  * Created by USER on 14.09.2014.

@@ -49,6 +49,9 @@
                <g:Label text="Amount row"/>  
 					<g:ListBox ui:field="rowBox" />
               
+               <g:Label text="Amount flash"/>  
+					<g:TextBox ui:field="amountFlash" />
+              
                <g:Button ui:field="save" text="Save Setting"/>
 
         		</g:FlowPanel>

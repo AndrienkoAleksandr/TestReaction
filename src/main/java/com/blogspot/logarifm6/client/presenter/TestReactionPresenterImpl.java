@@ -1,9 +1,8 @@
 package com.blogspot.logarifm6.client.presenter;
 
 import com.blogspot.logarifm6.client.TestReactResources;
+import com.blogspot.logarifm6.client.game_component.Settings;
 import com.blogspot.logarifm6.client.gin.TestInjector;
-import com.blogspot.logarifm6.client.gin.anotation.AmountColumn;
-import com.blogspot.logarifm6.client.gin.anotation.AmountRow;
 import com.blogspot.logarifm6.client.view.SmartWidget;
 import com.blogspot.logarifm6.client.view.TestReactionView;
 import com.google.gwt.core.client.GWT;
@@ -37,41 +36,38 @@ public class TestReactionPresenterImpl implements TestReactionPresenter {
 
     private String message;
 
-    private final int amountSwitch = 5;
-
-    private int amountColumn;
-
-    private int amountRow;
+    private int amountSwitch;
 
     private Timer timer;
 
     private int nextNumber = -1;
   
     private HasWidgets container;
+  
+    private Settings settings;
 
     @Inject
     public TestReactionPresenterImpl(TestReactionView reactionView,
                                      TestReactResources resources,
-                                     @AmountRow int amountRow,
-                                     @AmountColumn int amountColumn) {
+                                     Settings settings) {
         this.reactionView = reactionView;
         this.resources = resources;
-        this.amountColumn = amountColumn;
-        this.amountRow = amountRow;
+        this.settings = settings;
+        this.amountSwitch = settings.getAmountFlash();
         reactionView.setReactionPresenter(this);
         initPanelButton();
     }
 
     private void initPanelButton() {
       buttons.clear();
-      for(int i = 0; i < amountRow; i++) {
+      for(int i = 0; i < settings.getAmountRow(); i++) {
             createColumn(reactionView.getContent(), new FlowPanel());
         }
     }
   
     private void createColumn(HasWidgets contentPanel, FlowPanel flowPanel) {
         TestInjector injector = GWT.create(TestInjector.class);
-        for(int i = 0; i < amountColumn; i++) {
+        for(int i = 0; i < settings.getAmountColumn(); i++) {
 
           SmartWidget smartWidget = injector.getSmartWidget();
           smartWidget.setPresenter(this);
@@ -117,7 +113,7 @@ public class TestReactionPresenterImpl implements TestReactionPresenter {
 
             private int getRandomNumber() {
                 while (true) {
-                    nextNumber = Random.nextInt(amountColumn * amountRow);
+                    nextNumber = Random.nextInt(settings.getAmountColumn() * settings.getAmountRow());
                     if (nextNumber != randomNumber) {
                         break;
                     }
@@ -151,13 +147,19 @@ public class TestReactionPresenterImpl implements TestReactionPresenter {
 
     @Override
     public void stopAction() {
+      if (timer.isRunning()) {
         timer.cancel();
+      }
     }
     
     @Override
     public void saveButtonClicked() {
-       amountColumn = reactionView.getAmounColumn();
-       amountRow = reactionView.getAmountRow();
+       settings.setAmountColumn(reactionView.getAmounColumn());
+       settings.setAmountRow(reactionView.getAmountRow());
+       settings.setAmountFlash(reactionView.getAmountFlash());
+       
+       this.amountSwitch = reactionView.getAmountFlash();
+      
        container.clear();
       
        TestInjector injector = GWT.create(TestInjector.class);

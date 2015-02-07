@@ -21,4 +21,6 @@ public interface TestReactionView extends IsWidget {
     public int getAmounColumn();
       
     public int getAmountRow();
+  
+    public int getAmountFlash();
 }

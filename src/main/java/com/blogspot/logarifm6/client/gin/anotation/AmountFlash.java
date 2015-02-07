@@ -1,8 +1,8 @@
 package com.blogspot.logarifm6.client.gin.anotation;
+import com.google.inject.BindingAnnotation;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
-import com.google.inject.BindingAnnotation;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -12,5 +12,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @BindingAnnotation
 @Target({FIELD, PARAMETER, METHOD})
 @Retention(RUNTIME)
-public @interface AmountColumn {
+public @interface AmountFlash {
+  
 }
